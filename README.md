@@ -3,7 +3,7 @@
 A word-guessing game built as a 3-tier application.
 
 ```
-Angular (nginx)  ->  Spring Boot REST API  ->  PostgreSQL
+Angular  ->  Spring Boot REST API  ->  PostgreSQL
   presentation         application               data
 ```
 
