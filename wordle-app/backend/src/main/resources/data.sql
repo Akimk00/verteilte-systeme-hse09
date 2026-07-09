@@ -1,0 +1,22 @@
+INSERT INTO words (word, hint) VALUES
+('apple', 'A common fruit, said to keep the doctor away'),
+('crane', 'A tall bird, or a machine that lifts heavy loads'),
+('ocean', 'A vast body of salt water'),
+('piano', 'A keyboard instrument with black and white keys'),
+('tiger', 'A large wild cat with orange and black stripes'),
+('house', 'A building where people live'),
+('bread', 'A staple food baked from flour'),
+('light', 'The opposite of dark'),
+('music', 'An art form made from sound'),
+('plant', 'A living thing that grows in soil'),
+('water', 'The liquid essential for life'),
+('happy', 'Feeling joy or contentment'),
+('green', 'The colour of grass and leaves'),
+('chair', 'A piece of furniture you sit on'),
+('table', 'A flat surface held up by legs'),
+('smile', 'A friendly curve of the lips'),
+('beach', 'A sandy shore beside the sea'),
+('cloud', 'A mass of water vapour in the sky'),
+('dance', 'To move rhythmically to music'),
+('frame', 'A border that surrounds a picture')
+ON CONFLICT (word) DO NOTHING;

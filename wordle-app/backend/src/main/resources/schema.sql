@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS words (
+    word VARCHAR(5) PRIMARY KEY,
+    hint VARCHAR(255) NOT NULL
+);

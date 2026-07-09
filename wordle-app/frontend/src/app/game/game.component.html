@@ -1,0 +1,58 @@
+<div class="screen">
+  <header class="topbar">
+    <span class="wordmark-sm">WORDLE</span>
+    <button class="link-btn" (click)="newGame()">New game</button>
+  </header>
+
+  <main class="game">
+    <ng-container *ngIf="!loading && !error">
+      <div class="board">
+        <div class="row"
+             *ngFor="let row of board; let r = index"
+             [class.shake]="shakeRow === r"
+             [class.win]="winRow === r">
+          <div class="tile"
+               *ngFor="let tile of row"
+               [ngClass]="tile.state"
+               [class.filled]="tile.letter"
+               [class.pop]="tile.state !== 'empty'">
+            {{ tile.letter }}
+          </div>
+        </div>
+      </div>
+
+      <p class="status" aria-live="polite">{{ message }}</p>
+
+      <div class="hint-area">
+        <button class="hint-btn" (click)="revealHint()" [disabled]="showHint">
+          Show hint
+        </button>
+        <p class="hint-text" *ngIf="showHint">{{ hint }}</p>
+      </div>
+
+      <div class="endgame" *ngIf="gameOver">
+        <button class="primary-btn" (click)="newGame()">Play again</button>
+      </div>
+
+      <div class="keyboard">
+        <div class="kb-row" *ngFor="let kbRow of keyboardRows">
+          <button *ngFor="let key of kbRow"
+                  class="key"
+                  [class.wide]="key === 'ENTER' || key === 'BACK'"
+                  [ngClass]="keyState(key)"
+                  (click)="onKey(key)">
+            <span *ngIf="key === 'BACK'">&#9003;</span>
+            <span *ngIf="key !== 'BACK'">{{ key }}</span>
+          </button>
+        </div>
+      </div>
+    </ng-container>
+
+    <p class="info" *ngIf="loading">Loading word...</p>
+
+    <div class="info error-box" *ngIf="error">
+      <p>Could not reach the server. Make sure the backend and database are running.</p>
+      <button class="primary-btn" (click)="loadWord()">Try again</button>
+    </div>
+  </main>
+</div>

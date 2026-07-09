@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres:16
+    container_name: wordle-db
+    environment:
+      POSTGRES_DB: wordle
+      POSTGRES_USER: wordle
+      POSTGRES_PASSWORD: wordle
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wordle -d wordle"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    volumes:
+      - wordle-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./backend
+    image: wordle-backend:1.0
+    container_name: wordle-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/wordle
+      SPRING_DATASOURCE_USERNAME: wordle
+      SPRING_DATASOURCE_PASSWORD: wordle
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ./frontend
+    image: wordle-frontend:1.0
+    container_name: wordle-frontend
+    depends_on:
+      - backend
+    ports:
+      - "4200:80"
+
+volumes:
+  wordle-data:
